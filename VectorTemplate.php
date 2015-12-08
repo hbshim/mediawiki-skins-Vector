@@ -247,6 +247,7 @@ class VectorTemplate extends BaseTemplate {
 	 * @param array $portals
 	 */
 	protected function renderPortals( $portals ) {
+        global $wgUser;
 		// Force the rendering of the following portals
 		if ( !isset( $portals['SEARCH'] ) ) {
 			$portals['SEARCH'] = true;
@@ -270,7 +271,9 @@ class VectorTemplate extends BaseTemplate {
 				case 'SEARCH':
 					break;
 				case 'TOOLBOX':
+                    if ( $wgUser->isLoggedIn() ) {
 					$this->renderPortal( 'tb', $this->getToolbox(), 'toolbox', 'SkinTemplateToolboxEnd' );
+                    }
 					break;
 				case 'LANGUAGES':
 					if ( $this->data['language_urls'] !== false ) {
